@@ -1,0 +1,153 @@
+syntax = "proto3";
+
+package document;
+
+option go_package = "github.com/hexanecreations/docsai/backend/proto/documentpb";
+
+service DocumentAI {
+
+    rpc ProcessDocument(ProcessDocumentRequest)
+        returns (ProcessDocumentResponse);
+
+    rpc EmbedQuery(EmbedQueryRequest)
+        returns (EmbedQueryResponse);
+
+    rpc GenerateAnswer(GenerateAnswerRequest)
+        returns (GenerateAnswerResponse);
+
+    rpc GenerateAnswerStream(GenerateAnswerRequest)
+        returns (stream GenerateAnswerChunk);
+
+}
+
+service DocumentCallback {
+
+    rpc SaveProcessingResult(
+        SaveProcessingResultRequest
+    ) returns (
+        SaveProcessingResultResponse
+    );
+
+}
+
+message ProcessDocumentRequest {
+
+    string document_id = 1;
+
+    string bucket = 2;
+
+    string object_key = 3;
+
+    string mime_type = 4;
+
+}
+
+message ProcessDocumentResponse {
+
+    bool accepted = 1;
+
+}
+
+message Chunk {
+
+    int32 id = 1;
+
+    string text = 2;
+
+    int32 page = 3;
+
+    string section = 4;
+
+    map<string, string> metadata = 5;
+
+}
+
+message Embedding {
+
+    int32 chunk_id = 1;
+
+    repeated float vector = 2;
+
+    string model = 3;
+
+}
+
+message ProcessingResult {
+
+    int32 page_count = 1;
+
+    map<string, string> metadata = 2;
+
+    repeated Chunk chunks = 3;
+
+    repeated Embedding embeddings = 4;
+
+}
+
+message SaveProcessingResultRequest {
+
+    string document_id = 1;
+
+    ProcessingResult result = 2;
+
+}
+
+message SaveProcessingResultResponse {
+
+    bool success = 1;
+
+}
+
+message EmbedQueryRequest {
+
+    string text = 1;
+
+}
+
+message EmbedQueryResponse {
+
+    repeated float vector = 1;
+
+    string model = 2;
+
+}
+
+message ContextChunk {
+
+    string chunk_id = 1;
+
+    string text = 2;
+
+    string document_name = 3;
+
+    int32 page = 4;
+
+    string section = 5;
+
+}
+
+message GenerateAnswerRequest {
+
+    string question = 1;
+
+    repeated ContextChunk context = 2;
+
+}
+
+message GenerateAnswerResponse {
+
+    string answer = 1;
+
+    string model = 2;
+
+}
+
+message GenerateAnswerChunk {
+
+    string text_delta = 1;
+
+    bool done = 2;
+
+    string model = 3;
+
+}
