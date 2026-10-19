@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --color-bg: oklch(97% 0.012 80);
+  --color-surface: oklch(99.2% 0.006 80);
+  --color-border: oklch(88% 0.012 80);
+  --color-ink: oklch(24% 0.02 80);
+  --color-ink-muted: oklch(48% 0.015 80);
+  --color-ink-faint: oklch(62% 0.012 80);
+  --color-accent: oklch(62% 0.15 68);
+  --color-accent-soft: oklch(92% 0.05 68);
+  --color-hover: oklch(94% 0.012 80);
+  --color-success: oklch(52% 0.12 150);
+  --color-success-soft: oklch(92% 0.045 150);
+  --color-info: oklch(55% 0.12 235);
+  --color-info-soft: oklch(91% 0.035 235);
+  --color-danger: oklch(55% 0.17 25);
+  --color-danger-soft: oklch(93% 0.045 25);
+}
+
+.dark {
+  --color-bg: oklch(18% 0.014 70);
+  --color-surface: oklch(22% 0.014 70);
+  --color-border: oklch(32% 0.014 70);
+  --color-ink: oklch(94% 0.006 70);
+  --color-ink-muted: oklch(72% 0.01 70);
+  --color-ink-faint: oklch(54% 0.012 70);
+  --color-accent: oklch(72% 0.14 68);
+  --color-accent-soft: oklch(30% 0.06 68);
+  --color-hover: oklch(26% 0.014 70);
+  --color-success: oklch(70% 0.14 150);
+  --color-success-soft: oklch(27% 0.05 150);
+  --color-info: oklch(68% 0.13 235);
+  --color-info-soft: oklch(27% 0.05 235);
+  --color-danger: oklch(68% 0.16 25);
+  --color-danger-soft: oklch(28% 0.05 25);
+}
+
+@theme inline {
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-border: var(--color-border);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-faint: var(--color-ink-faint);
+  --color-accent: var(--color-accent);
+  --color-accent-soft: var(--color-accent-soft);
+  --color-hover: var(--color-hover);
+  --color-success: var(--color-success);
+  --color-success-soft: var(--color-success-soft);
+  --color-info: var(--color-info);
+  --color-info-soft: var(--color-info-soft);
+  --color-danger: var(--color-danger);
+  --color-danger-soft: var(--color-danger-soft);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
+}
+
+@keyframes docsai-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes docsai-blink {
+  0%,
+  100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes docsai-skel {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: calc(200px + 100%) 0;
+  }
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
